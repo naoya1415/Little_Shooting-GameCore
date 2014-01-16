@@ -6,8 +6,18 @@ import gameLogic.mode.Result_ClaerMode;
 import gameLogic.mode.Result_GameOverMode;
 import gameLogic.mode.StartMode;
 
+/**
+ * PC(AWT)向けサンプル実装の、ゲームコンテナ
+ * @author n-dolphin
+ * @version 1.00 2014/01/17
+ */
 public class PC_GameContainer extends GameContainer{
 	
+	/**
+	 * コンストラクタ
+	 * @param Width 画面の幅
+	 * @param Height 画面の高さ
+	 */
 	public PC_GameContainer(Integer Width, Integer Height) {
 		super(Width, Height, new PC_DrawImplement());
 		

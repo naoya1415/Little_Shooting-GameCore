@@ -8,23 +8,31 @@ import gameLogic.mode.Bean.TextBean;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Image;
 
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-public class PC_DrawImplement extends JPanel  implements DrawImplementIF {
+/**
+ * PC(AWT)依存コードの実装
+ * @author n-dolphin
+ * @version 1.00 2014/01/17
+ */
+public class PC_DrawImplement extends JPanel implements DrawImplementIF {
 
-	ImageIcon iconMe, iconEnemy;
-	Image imgMe, imgEnemy;
 
-	
+	/**
+	 * 描画対象
+	 */
 	private  Graphics g = null;
 	
+	/**
+	 *全モードで共有される設定情報 
+	 */
 	FieldConfigBean fc = null;
 	
+	/**
+	 * コンストラクタ
+	 */
 	public PC_DrawImplement(){
-//		loadIconPictures(null)
 
 	}
 	
@@ -33,9 +41,7 @@ public class PC_DrawImplement extends JPanel  implements DrawImplementIF {
 		this.fc = FC;		
 	}
 	
-	
-
-	
+		
 	@SuppressWarnings("hiding")
 	@Override
 	public  <Graphics> void updatePanel(Graphics panel) {
@@ -97,14 +103,6 @@ public class PC_DrawImplement extends JPanel  implements DrawImplementIF {
 	}
 
 	
-
-	/* 画像ファイルからImage クラスへの変換 */
-	public Image getImg(String filename) {
-		ImageIcon icon = new ImageIcon(filename);
-		Image img = icon.getImage();
-		return img;
-	}
-
 	@Override
 	public void drawButton(ButtonBean Button) {
 
@@ -118,6 +116,11 @@ public class PC_DrawImplement extends JPanel  implements DrawImplementIF {
 		insideOf_DrawText(Text);
 	}
 	
+	
+	/**
+	 * テキストとボタンで共通の描画コード
+	 * @param Bean 
+	 */
 	private void insideOf_DrawText(TextBean Bean){
 	
 		//大文字と小文字でサイズが一緒なConsolasを使用

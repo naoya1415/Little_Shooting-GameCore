@@ -19,19 +19,31 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 
+/**
+ *  PC(AWT)向けサンプル実装の、エントリーポイント
+ * @author n-dolphin
+ * @version 1.00 2014/01/17
+ */
 public class PC_EntryPoint  extends JFrame {
 
 	
+	/**
+	 * 画面の幅
+	 */
 	final int windowWidth = 500;
+	/**
+	 * 画面の高さ
+	 */
 	final int windowHeight = 800;
 	
-	/**
-	 * @param args
-	 */
+	
 	public static void main(String[] args) {
 		new PC_EntryPoint();
 	}
-
+	/**
+	 * エントリーポイント
+	 * @param args
+	 */
 	public PC_EntryPoint() {
 		Dimension dimOfScreen = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds(dimOfScreen.width / 2 - windowWidth / 2, dimOfScreen.height
@@ -49,6 +61,11 @@ public class PC_EntryPoint  extends JFrame {
 		setVisible(true);
 	}
 
+	/**
+	 * 描画クラス
+	 * @author n-dolphin
+	 *
+	 */
 	public class MyJPanel extends JPanel implements ActionListener,
 			MouseListener, MouseMotionListener ,KeyListener{
 	
@@ -59,7 +76,9 @@ public class PC_EntryPoint  extends JFrame {
 		Timer timer;
 		
 		
-		/* コンストラクタ（ゲーム開始時の初期化） */
+		/**
+		 * コンストラクタ（ゲーム開始時の初期化） 
+		 */
 		public MyJPanel() {
 			// 全体の設定
 			dimOfPanel =null;
@@ -82,6 +101,7 @@ public class PC_EntryPoint  extends JFrame {
 		}
 		
 		/* パネル上の描画 */
+		@Override
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			
