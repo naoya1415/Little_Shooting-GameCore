@@ -2,7 +2,7 @@ package sample.PC_Implement;
 
 import gameLogic.DrawImplement.DrawImplementIF;
 import gameLogic.mode.Bean.ButtonBean;
-import gameLogic.mode.Bean.FieldConfig;
+import gameLogic.mode.Bean.FieldConfigBean;
 import gameLogic.mode.Bean.TextBean;
 
 import java.awt.Color;
@@ -21,7 +21,7 @@ public class PC_DrawImplement extends JPanel  implements DrawImplementIF {
 	
 	private  Graphics g = null;
 	
-	FieldConfig fc = null;
+	FieldConfigBean fc = null;
 	
 	public PC_DrawImplement(){
 //		loadIconPictures(null)
@@ -29,7 +29,7 @@ public class PC_DrawImplement extends JPanel  implements DrawImplementIF {
 	}
 	
 	@Override
-	public void setConfig(FieldConfig FC){
+	public void setConfig(FieldConfigBean FC){
 		this.fc = FC;		
 	}
 	
@@ -46,7 +46,7 @@ public class PC_DrawImplement extends JPanel  implements DrawImplementIF {
 	@Override
 	public void setBackground() {
 		g.setColor(Color.black);
-		g.fillRect(0, 0, fc.realScreenWidth,fc.realScreenHeight);
+		g.fillRect(0, 0, fc.screenWidth,fc.screenHeight);
 	}
 	
 	@Override
@@ -96,12 +96,7 @@ public class PC_DrawImplement extends JPanel  implements DrawImplementIF {
 		}
 	}
 
-	@Override
-	public <ResourceType> void loadIconPictures(ResourceType resource) {
-		// 画像の取り込み
-		imgMe = getImg("jiki.jpg");
-		imgEnemy = getImg("teki.jpg");
-	}
+	
 
 	/* 画像ファイルからImage クラスへの変換 */
 	public Image getImg(String filename) {
@@ -114,7 +109,7 @@ public class PC_DrawImplement extends JPanel  implements DrawImplementIF {
 	public void drawButton(ButtonBean Button) {
 
 		insideOf_DrawText(Button);		
-		g.drawRect(Button.CollisionAreaX,Button.CollisionAreaY,Button.CollisionAreaWidth,Button.CollisionAreaHeight);
+		g.drawRect(Button.getCollisionAreaX(),Button.getCollisionAreaY(),Button.getCollisionAreaWidth(),Button.getCollisionAreaHeight());
 		
 	}
 

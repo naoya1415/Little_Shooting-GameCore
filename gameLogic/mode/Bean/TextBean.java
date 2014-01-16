@@ -1,16 +1,41 @@
 package gameLogic.mode.Bean;
 
+/**
+ * テキスト表示用の情報を保持
+ * @author n-dolphin
+ * @version 1.00 2014/01/17
+ */
 public class TextBean {
+	
+	/**
+	 * 表示するテキスト
+	 */
 	private String Text = null;
+	
+	/**
+	 * テキストの左上x座標
+	 */
 	private Integer X = null;
+	
+	/**
+	 * テキストの左上y座標 
+	 */
 	private Integer Y = null;
+	
+	/**
+	 * テキストのフォントサイズ
+	 */
 	private Integer fontSize = null;
 
+	/**
+	 * テキストの色・透過
+	 */
 	private Integer[] color = {0,0,0,255};
 	
 	/**
 	 * Textの左上位置を設定
-	 * @param Integer x,Integer y
+	 * @param x  
+	 * @param y 
 	 */
 	public void setLocation(Integer x,Integer y) {
 		X = x;
@@ -19,7 +44,10 @@ public class TextBean {
 	
 	/**
 	 * オブジェクトの色を設定
-	 * @param Integer R,Integer G,Integer B,Integer Alpha
+	 * @param R 
+	 * @param G 
+	 * @param B 
+	 * @param Alpha 
 	 */
 	public void setColor(Integer R,Integer G,Integer B,Integer Alpha) {
 		color[0] = R;
@@ -105,8 +133,6 @@ public class TextBean {
 	public Integer getFontSize() {
 	    return fontSize;
 	}
-
-	
 
 	/**
 	 * colorを取得します。

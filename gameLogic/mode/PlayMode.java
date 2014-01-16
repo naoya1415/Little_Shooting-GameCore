@@ -1,58 +1,112 @@
 package gameLogic.mode;
 
 import gameLogic.DrawImplement.DrawImplementIF;
-import gameLogic.mode.Bean.FieldConfig;
+import gameLogic.mode.Bean.FieldConfigBean;
 
+/**
+ * インベーダーゲーム風シューティングゲームのロジッククラス
+ * @author n-dolphin
+ * @version 1.00 2014/01/17
+ */
 public class PlayMode implements GameModeIF{
 	
-	
+	/**
+	 * 本モードの名前
+	 */
+	final public static String name = "PlayMode";
 
-	private DrawImplementIF di;
 	
-	FieldConfig fc = new FieldConfig();
+	/**
+	 *実行環境に依存した描画処理の実装 
+	 */
+	protected DrawImplementIF di;
+	
+	/**
+	 *全モードで共有される設定情報 
+	 */
+	protected FieldConfigBean fc = new FieldConfigBean();
 			
 	
-	private Integer myX, myY, tempMyX;
-	private Integer myMissileX, myMissileY;
-	private boolean isMyMissileActive;
-	private Integer numOfAlive ;
+	/**
+	 * 自機の座標
+	 */
+	protected Integer myX, myY, tempMyX;
 	
-	
-	private Integer[] enemyX = new Integer[fc.numOfEnemy];
-	private Integer[] enemyY = new Integer[fc.numOfEnemy];
-	private Integer[] enemyMove = new Integer[fc.numOfEnemy];
-	private Integer[] enemyMissileX = new Integer[fc.numOfEnemy];
-	private Integer[] enemyMissileY = new Integer[fc.numOfEnemy];
-	
-	private Boolean[] isEnemyAlive = new Boolean[fc.numOfEnemy];
-	private Boolean[] isEnemyMissileActive = new Boolean[fc.numOfEnemy];
+	/**
+	 * 自機ミサイルの座標
+	 */
+	protected Integer myMissileX, myMissileY;
+	/**
+	 * 自機ミサイルの死活
+	 */
+	protected boolean isMyMissileActive;
 	
 
 	
-	final public static String name = "PlayMode";
+	
+	/**
+	 * 各敵機のx座標
+	 */
+	protected Integer[] enemyX = new Integer[fc.numOfEnemy];
+	
+	/**
+	 * 各敵機のy座標 
+	 */
+	protected Integer[] enemyY = new Integer[fc.numOfEnemy];
+	
+	/**
+	 * 各敵機の移動方向
+	 */
+	protected Integer[] enemyMove = new Integer[fc.numOfEnemy];
+	/**
+	 * 各敵機の死活
+	 */
+	protected Boolean[] isEnemyAlive = new Boolean[fc.numOfEnemy];
+	
+	
+	/**
+	 * 各敵機ミサイルのX座標
+	 */
+	protected Integer[] enemyMissileX = new Integer[fc.numOfEnemy];
+	/**
+	 * 各敵機ミサイルのY座標
+	 */
+	protected Integer[] enemyMissileY = new Integer[fc.numOfEnemy];
+	
+	/**
+	 * 残り敵数
+	 */
+	protected Integer numOfAlive ;
+	
+	/**
+	 * 各敵機ミサイルの死活
+	 */
+	protected Boolean[] isEnemyMissileActive = new Boolean[fc.numOfEnemy];
+	
+
 
 	@Override
 	public String name() {
 		return name;
 	}
 	@Override
-	public String launch(DrawImplementIF DI, FieldConfig fc) {
+	public String launch(DrawImplementIF DI, FieldConfigBean fc) {
 		this.di = DI;
 		this.fc = fc;
 		
-
 		initMine();
 		initEnemies();
 		
-		//TODO:ここでDPIのへんこうなどで、FCの中身を更新する
 		this.di.setConfig(fc);
 		
 		return null;
 	}
 
 	
-	/* 自機の初期化 */
-	public void initMine() {
+	/**
+	 * 自機の初期化 
+	 */
+	protected void initMine() {
 		myX = fc.screenWidth / 2;
 		myY = fc.screenHeight /10 * 7;
 		tempMyX = fc.screenWidth / 2;
@@ -63,8 +117,10 @@ public class PlayMode implements GameModeIF{
 		isMyMissileActive = false;
 	}
 
-	/* 敵機の初期化 */
-	public void initEnemies() {
+	/**
+	 * 敵機の初期化 
+	 */
+	protected void initEnemies() {
 		
 		numOfAlive = fc.numOfEnemy;
 		
@@ -115,9 +171,7 @@ public class PlayMode implements GameModeIF{
 
 	@Override
 	public String touch(Integer X, Integer Y) {
-
-		
-	return null;
+		return null;
 	}
 
 	@Override
@@ -126,22 +180,10 @@ public class PlayMode implements GameModeIF{
 		return null;
 	}
 	
-	/*当たり判定領域を設定(Androidでのみ使用を想定=DPIによって画像のサイズが変わるため)*/
-	public  void setCollisionDetection(Integer defaultDPI,Integer deviceDPI){
-		Float scale = (float)deviceDPI/(float)defaultDPI;
-		fc.myWidth = (int)(30*scale);
-		fc.myHeight = (int)(20*scale);
-		
-		fc.enemyWidth = (int)(30*scale);
-		fc.enemyHeight = (int)(20*scale);
-		
-		fc.missileWidth = (int)(4*scale);
-		fc.missileHeight = (int)(10*scale);
-		
-		//TODO:自・敵のミサイルもDPIによってサイズが代わるので、あたり判定のサイズも変える処理を実装
-	};
 	
-	/* 自機の描画 */
+	/**
+	 * 自機の座標計算
+	 */
 	protected void calcMyPlane() {
 		if (Math.abs(tempMyX - myX) < fc.gap) {
 			if (myX < 0) {
@@ -153,19 +195,17 @@ public class PlayMode implements GameModeIF{
 		}
 	}
 
-	/***
-	 * 自機のミサイルの計算 
-	 * 返り値は自ミサイルを描画するかどうか
-	 * trueならするfalseならしない(==)
-	 *  */
-	
-	public Boolean calcMyMissile() {
+
+	/**
+	 * 自機ミサイルの座標計算
+	 */
+	protected void calcMyMissile() {
 		if (!isMyMissileActive) {
-			return false;
+			return ;
 		}
 		
 		// ミサイルの配置
-		myMissileY -= 15;
+		myMissileY -= fc.myMissileSpeed;
 		// 自機のミサイルの敵機各機への当たり判定
 		for (Integer i = 0; i < fc.numOfEnemy; i++) {
 			
@@ -183,14 +223,14 @@ public class PlayMode implements GameModeIF{
 		// ミサイルがウィンドウ外に出たときのミサイルの再初期化
 		if (myMissileY < 0){
 			isMyMissileActive = false;
-			return false;
 		}
-		return true;
 	}
 
 	
-	/* 敵機の計算 */
-	public void calcEnemyPlane() {
+	/**
+	 * 敵機の計算
+	 */
+	protected void calcEnemyPlane() {
 		for (Integer i = 0; i < fc.numOfEnemy; i++) {
 			if (isEnemyAlive[i]) {
 				if (enemyX[i] > fc.screenWidth - fc.enemyWidth) {
@@ -204,8 +244,11 @@ public class PlayMode implements GameModeIF{
 	}
 	
 	
-	/* 敵機のミサイルの計算 */
-	public String calcEnemyMissile() {
+	/**
+	 * 敵機のミサイルの計算
+	 * @return 敗北時の遷移先名
+	 */
+	protected String calcEnemyMissile() {
 		for (Integer i = 0; i < fc.numOfEnemy; i++) {
 			// ミサイルの配置
 			if (isEnemyMissileActive[i]) {
@@ -217,7 +260,6 @@ public class PlayMode implements GameModeIF{
 					&& (enemyMissileY[i] + 5 >= myY)
 					&& (enemyMissileY[i] + 5 <= myY + fc.myHeight)) {
 				
-				//TODO: 自機のダメージ処理?敗北処理?を実装
 				return MyDamage();
 			}
 			// ミサイルがウィンドウ外に出たときのミサイルの再初期化
@@ -233,6 +275,10 @@ public class PlayMode implements GameModeIF{
 		return null;
 	}
 	
+	/**
+	 * 被ダメージ処理
+	 * @return 敗北時の遷移先名
+	 */
 	private String MyDamage(){
 		return Result_GameOverMode.name;
 	}
@@ -251,7 +297,6 @@ public class PlayMode implements GameModeIF{
 
 	@Override
 	public String pointerUp(Integer X, Integer Y) {
-		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
 
@@ -277,7 +322,4 @@ public class PlayMode implements GameModeIF{
 
 		return null;
 	}
-
-
-	
 }

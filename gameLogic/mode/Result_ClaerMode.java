@@ -2,43 +2,63 @@ package gameLogic.mode;
 
 import gameLogic.DrawImplement.DrawImplementIF;
 import gameLogic.mode.Bean.ButtonBean;
-import gameLogic.mode.Bean.FieldConfig;
+import gameLogic.mode.Bean.FieldConfigBean;
 import gameLogic.mode.Bean.TextBean;
 
 
 
+/**
+ * ゲームクリア時に表示されるモード
+ * @author n-dolphin
+ * @version 1.00 2014/01/17
+ */
 public class Result_ClaerMode implements GameModeIF{
 
-	private DrawImplementIF di;
-	
-	FieldConfig fc = new FieldConfig();
-	
-	TextBean resultText = new TextBean();
-	ButtonBean restartButton = new ButtonBean();
-	
-	
+	/**
+	 * 本モードの名前
+	 */
 	final public static String name = "Resul_ClearMode";
-
+	
+	/**
+	 *実行環境に依存した描画処理の実装 
+	 */
+	protected DrawImplementIF di;
+	
+	/**
+	 *全モードで共有される設定情報 
+	 */
+	protected FieldConfigBean fc = new FieldConfigBean();
+	
+	/**
+	 * ゲームの結果によって表示されるテキストのBean
+	 */
+	protected TextBean resultText = new TextBean();
+	
+	/**
+	 * リスタートボタンのBean
+	 */
+	protected ButtonBean restartButton = new ButtonBean();
+	
+	
 	@Override
 	public String name() {
 		return name;
 	}
 	
 	@Override
-	public String launch(DrawImplementIF DI, FieldConfig FC) {
+	public String launch(DrawImplementIF DI, FieldConfigBean FC) {
 		this.di = DI;
 		this.fc = FC;
-		
-		init();
+
+		setupResultText();
+		setupRestartButton();
 		return null;
 	}
 
-	void init(){
-		setupResultText();
-		setupRestartButton();
-	}
-	
-	 void setupResultText(){
+	 /**
+	 * ゲームの結果によって表示されるテキストのBeanを設定
+	 */
+	void setupResultText(){
 		/*スタートボタンのコンフィグ*/
 		//TODO:多言語化その他ように、まとめられるように
 		resultText.setText("clear!!");
@@ -47,6 +67,10 @@ public class Result_ClaerMode implements GameModeIF{
 		resultText.setColor(255, 0, 0, 255);
 	}
 	 
+	
+	/**
+	 * リスタートボタンのBeanを設定
+	 */
 	void setupRestartButton(){
 		/*スタートボタンのコンフィグ*/
 		//TODO:多言語化その他ように、まとめられるように

@@ -1,8 +1,15 @@
 package gameLogic.mode;
 
+/**
+ * ゲームオーバ時に表示されるモード
+ * @author n-dolphin
+ * @version 1.00 2014/01/17
+ */
 public class Result_GameOverMode extends Result_ClaerMode{
 
-
+	/**
+	 * 本モードの名前
+	 */
 	final public static String name = "Result_GameOverMode";
 	
 	@Override
