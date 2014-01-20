@@ -60,7 +60,7 @@ public class StartMode implements GameModeIF{
 	
 	@Override
 	public String update() {
-		di.setBackground();
+		di.setBackground(fc.black);
 		di.drawButton(startButton);
 		
 		return null;

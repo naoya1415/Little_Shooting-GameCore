@@ -47,6 +47,13 @@ public interface DrawImplementIF {
 	public abstract <PanelType> void updatePanel(PanelType panel);
 	
 	/**
+	 * ポリゴンの描写
+	 * @param xPoints 
+	 * @param yPoints 
+	 */
+	public  void drawPolygon(int xPoints[], int yPoints[],Integer[] Color);
+	
+	/**
 	 * 自機の描画 
 	 * @param x x座標
 	 * @param y y座標
@@ -75,13 +82,19 @@ public interface DrawImplementIF {
 	 * @param x x座標
 	 * @param y y座標
 	 */
-	public  void drawEnemyMissile(Boolean[] isEnemyMissileActive,Integer[] x,Integer[] y);
+	
 
+	/**
+	 * 敵機のミサイルの描画 
+	 * @param isEnemyMissileActive 
+	 * @param x x座標
+	 * @param y y座標
+	 * @param Color 
+	 */
+	public void drawEnemyMissile(Boolean[] isEnemyMissileActive,Integer[] x,Integer[] y,Integer[] Color); 
 	/**
 	 *背景色の設定
 	 */
-	public  void setBackground();
-	
-	
+	public void setBackground(Integer[] Color);
 
 }

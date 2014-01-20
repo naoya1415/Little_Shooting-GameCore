@@ -18,16 +18,20 @@ import javax.swing.JPanel;
  */
 public class PC_DrawImplement extends JPanel implements DrawImplementIF {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 描画対象
 	 */
-	private  Graphics g = null;
+	protected Graphics g = null;
 	
 	/**
 	 *全モードで共有される設定情報 
 	 */
-	FieldConfigBean fc = null;
+	protected FieldConfigBean fc = null;
 	
 	/**
 	 * コンストラクタ
@@ -50,8 +54,8 @@ public class PC_DrawImplement extends JPanel implements DrawImplementIF {
 	
 	
 	@Override
-	public void setBackground() {
-		g.setColor(Color.black);
+	public void setBackground(Integer[] color) {
+		g.setColor(new Color(color[0],color[1],color[2],color[3]));
 		g.fillRect(0, 0, fc.screenWidth,fc.screenHeight);
 	}
 	
@@ -92,11 +96,12 @@ public class PC_DrawImplement extends JPanel implements DrawImplementIF {
 	}
 
 	@Override
-	public void drawEnemyMissile(Boolean[] isEnemyMissileActive,Integer[] x,Integer[] y) {
+	public void drawEnemyMissile(Boolean[] isEnemyMissileActive,Integer[] x,Integer[] y,Integer[] color) {
+		g.setColor(new Color(color[0],color[1],color[2],color[3]));
 		for (int i = 0; i < fc.numOfEnemy; i++) {
 			// ミサイルの配置
 			if (isEnemyMissileActive[i]) {
-				g.setColor(Color.red);
+				
 				g.fillRect(x[i], y[i], fc.missileWidth, fc.missileHeight);
 			}
 		}
@@ -129,6 +134,12 @@ public class PC_DrawImplement extends JPanel implements DrawImplementIF {
 		g.setColor(new Color(Bean.getColorR(),Bean.getColorG(),Bean.getColorB(),Bean.getColorAlpha()));
 		
 		g.drawString(Bean.getText(), Bean.getX() , Bean.getY());
+	}
+
+	@Override
+	public void drawPolygon(int[] xPoints, int[] yPoints,Integer[] color) {
+		g.setColor(new Color(color[0],color[1],color[2],color[3]));
+		g.fillPolygon(xPoints, yPoints, xPoints.length);
 	}
 
 }

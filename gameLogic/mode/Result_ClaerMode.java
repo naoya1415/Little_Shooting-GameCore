@@ -82,7 +82,7 @@ public class Result_ClaerMode implements GameModeIF{
 	
 	@Override
 	public String update() {
-		di.setBackground();
+		di.setBackground(fc.black);
 		di.drawText(resultText);
 		di.drawButton(restartButton);
 		return null;

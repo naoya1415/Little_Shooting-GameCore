@@ -84,7 +84,7 @@ public class PlayMode implements GameModeIF{
 	protected Boolean[] isEnemyMissileActive = new Boolean[fc.numOfEnemy];
 	
 
-
+	
 	@Override
 	public String name() {
 		return name;
@@ -146,7 +146,7 @@ public class PlayMode implements GameModeIF{
 	
 	@Override
 	public String update() {
-		di.setBackground();
+		di.setBackground(fc.black);
 		
 		
 		calcMyPlane();
@@ -159,7 +159,7 @@ public class PlayMode implements GameModeIF{
 		di.drawMyMissile(isMyMissileActive,myMissileX,myMissileY);
 				
 		di.drawEnemyPlane(isEnemyAlive,enemyX,enemyY);
-		di.drawEnemyMissile(isEnemyMissileActive,enemyMissileX,enemyMissileY);
+		di.drawEnemyMissile(isEnemyMissileActive,enemyMissileX,enemyMissileY,fc.red);
 		
 		
 		if(numOfAlive == 0){
@@ -210,9 +210,9 @@ public class PlayMode implements GameModeIF{
 		for (Integer i = 0; i < fc.numOfEnemy; i++) {
 			
 			if (isEnemyAlive[i]) {
-				if ((myMissileX >= enemyX[i])
+				if ((myMissileX >= enemyX[i] - fc.enemyWidth)
 						&& (myMissileX <= enemyX[i] + fc.enemyWidth)
-						&& (myMissileY >= enemyY[i])
+						&& (myMissileY >= enemyY[i] - fc.enemyHeight)
 						&& (myMissileY <= enemyY[i] + fc.enemyHeight)) {
 					isEnemyAlive[i] = false;
 					isMyMissileActive = false;
@@ -255,9 +255,9 @@ public class PlayMode implements GameModeIF{
 				enemyMissileY[i] += fc.enemyMissileSpeed[i];
 			}
 			// 敵機のミサイルの自機への当たり判定
-			if ((enemyMissileX[i] >= tempMyX)
+			if ((enemyMissileX[i] >= tempMyX -fc.myWidth)
 					&& (enemyMissileX[i] <= tempMyX + fc.myWidth)
-					&& (enemyMissileY[i] + 5 >= myY)
+					&& (enemyMissileY[i] + 5 >= myY - fc.myHeight)
 					&& (enemyMissileY[i] + 5 <= myY + fc.myHeight)) {
 				
 				return MyDamage();

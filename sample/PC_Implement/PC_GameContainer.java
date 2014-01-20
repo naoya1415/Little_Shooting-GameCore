@@ -5,6 +5,7 @@ import gameLogic.mode.PlayMode;
 import gameLogic.mode.Result_ClaerMode;
 import gameLogic.mode.Result_GameOverMode;
 import gameLogic.mode.StartMode;
+import gameLogic.mode.Bean.FieldConfigBean;
 
 /**
  * PC(AWT)向けサンプル実装の、ゲームコンテナ
@@ -19,7 +20,7 @@ public class PC_GameContainer extends GameContainer{
 	 * @param Height 画面の高さ
 	 */
 	public PC_GameContainer(Integer Width, Integer Height) {
-		super(Width, Height, new PC_DrawImplement());
+		super(Width, Height, new PC_DrawImplement(),new FieldConfigBean());
 		
 		super.addMode(new StartMode());
 		super.addMode(new PlayMode());

@@ -40,7 +40,7 @@ public abstract class  GameContainer {
 	/**
 	 *全モードで共有される設定情報 
 	 */
-	FieldConfigBean fc = new FieldConfigBean();
+	FieldConfigBean fc = null;
 
 	/**
 	 * コンストラクタ<br>
@@ -50,10 +50,12 @@ public abstract class  GameContainer {
 	 * @param Height  画面の高さ
 	 * @param DI  描画メソッドの実装
 	 */
-	protected GameContainer(Integer Width,Integer Height,DrawImplementIF DI) {;
+	protected GameContainer(Integer Width,Integer Height,DrawImplementIF DI,FieldConfigBean FC) {;
+
+		this.fc = FC;
 		fc.screenWidth = Width;
 		fc.screenHeight = Height;
-		
+
 		this.di = DI;
 		di.setConfig(fc);
 	}

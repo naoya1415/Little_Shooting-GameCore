@@ -28,6 +28,10 @@ public class PC_EntryPoint  extends JFrame {
 
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * 画面の幅
 	 */
 	final int windowWidth = 500;
@@ -69,6 +73,11 @@ public class PC_EntryPoint  extends JFrame {
 	public class MyJPanel extends JPanel implements ActionListener,
 			MouseListener, MouseMotionListener ,KeyListener{
 	
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		GameContainer gc ;
 		
 		/* 全体の設定に関する変数 */
