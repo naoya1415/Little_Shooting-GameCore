@@ -2,8 +2,8 @@ package gameLogic.mode.Bean;
 
 /**
  * ボタン表示用の情報を保持
- * @author n-dolphin
- * @version 1.00 2014/01/17
+ * @author NaoyaIchikawa
+ * @version 1.10 2014/01/27
  */
 public class ButtonBean extends TextBean{
 
@@ -45,20 +45,23 @@ public class ButtonBean extends TextBean{
 	}
 	
 	
-	@Override
-	public void setColor(Integer R,Integer G,Integer B,Integer Alpha) {
-		super.setColor(R, G, B, Alpha);
-		if(super.getFontSize() != null){
-			setCollisionArea();
-		}
-	}
 	
 	@Override
 	public void setFontSize(Integer fontSize) {
 		super.setFontSize(fontSize);
-		if(super.getX() != null && super.getY() != null){
-			setCollisionArea();
-		}
+		setCollisionArea();
+	}
+	
+	@Override
+	public void setText(String Text){
+		super.setText(Text);
+		setCollisionArea();
+	}
+	
+	@Override
+	public void setStartPosition(Integer x,Integer y){
+		super.setStartPosition(x, y);
+		setCollisionArea();
 	}
 	
 	/**
@@ -66,7 +69,7 @@ public class ButtonBean extends TextBean{
 	 */
 	private void setCollisionArea(){
 		CollisionAreaX=getX();
-		CollisionAreaY = getY()-(int)(getFontSize()*0.7);
+		CollisionAreaY = getY();
 		
 		CollisionAreaWidth = (int)(getFontSize()*0.55*getText().length());
 		CollisionAreaHeight = (int)(getFontSize()*0.8);

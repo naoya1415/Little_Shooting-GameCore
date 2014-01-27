@@ -4,9 +4,9 @@ import gameLogic.DrawImplement.DrawImplementIF;
 import gameLogic.mode.Bean.FieldConfigBean;
 
 /**
- * インベーダーゲーム風シューティングゲームのロジッククラス
- * @author n-dolphin
- * @version 1.00 2014/01/17
+ * インベーダーゲーム風ゲームのロジッククラス
+ * @author NaoyaIchikawa
+ * @version 1.10 2014/01/27
  */
 public class PlayMode implements GameModeIF{
 	
@@ -15,82 +15,77 @@ public class PlayMode implements GameModeIF{
 	 */
 	final public static String name = "PlayMode";
 
-	
 	/**
 	 *実行環境に依存した描画処理の実装 
 	 */
-	protected DrawImplementIF di;
+	protected DrawImplementIF di = null;
 	
 	/**
 	 *全モードで共有される設定情報 
 	 */
-	protected FieldConfigBean fc = new FieldConfigBean();
+	protected FieldConfigBean fc = null;
 			
-	
 	/**
 	 * 自機の座標
 	 */
-	protected Integer myX, myY, tempMyX;
+	protected Integer myX= null, myY= null, tempMyX= null;
 	
 	/**
 	 * 自機ミサイルの座標
 	 */
-	protected Integer myMissileX, myMissileY;
+	protected Integer myMissileX= null, myMissileY= null;
 	/**
 	 * 自機ミサイルの死活
 	 */
-	protected boolean isMyMissileActive;
-	
-
-	
+	protected Boolean isMyMissileActive= null;
 	
 	/**
 	 * 各敵機のx座標
 	 */
-	protected Integer[] enemyX = new Integer[fc.numOfEnemy];
+	protected Integer[] enemyX = null;
 	
 	/**
 	 * 各敵機のy座標 
 	 */
-	protected Integer[] enemyY = new Integer[fc.numOfEnemy];
+	protected Integer[] enemyY = null;
 	
 	/**
 	 * 各敵機の移動方向
 	 */
-	protected Integer[] enemyMove = new Integer[fc.numOfEnemy];
+	protected Integer[] enemyMove = null;
 	/**
 	 * 各敵機の死活
 	 */
-	protected Boolean[] isEnemyAlive = new Boolean[fc.numOfEnemy];
+	protected Boolean[] isEnemyAlive = null;
 	
 	
 	/**
 	 * 各敵機ミサイルのX座標
 	 */
-	protected Integer[] enemyMissileX = new Integer[fc.numOfEnemy];
+	protected Integer[] enemyMissileX = null;
 	/**
 	 * 各敵機ミサイルのY座標
 	 */
-	protected Integer[] enemyMissileY = new Integer[fc.numOfEnemy];
+	protected Integer[] enemyMissileY = null;
 	
 	/**
 	 * 残り敵数
 	 */
-	protected Integer numOfAlive ;
+	protected Integer numOfAlive = null;
 	
 	/**
 	 * 各敵機ミサイルの死活
 	 */
-	protected Boolean[] isEnemyMissileActive = new Boolean[fc.numOfEnemy];
+	protected Boolean[] isEnemyMissileActive = null;
 	
 
 	
 	@Override
-	public String name() {
+	public String getName() {
 		return name;
 	}
 	@Override
-	public String launch(DrawImplementIF DI, FieldConfigBean fc) {
+	public String open(DrawImplementIF DI, FieldConfigBean fc) throws Exception{
 		this.di = DI;
 		this.fc = fc;
 		
@@ -115,6 +110,7 @@ public class PlayMode implements GameModeIF{
 		myMissileY = myY;
 		
 		isMyMissileActive = false;
+		
 	}
 
 	/**
@@ -123,7 +119,13 @@ public class PlayMode implements GameModeIF{
 	protected void initEnemies() {
 		
 		numOfAlive = fc.numOfEnemy;
-		
+		enemyX = new Integer[fc.numOfEnemy];
+		enemyY = new Integer[fc.numOfEnemy];
+		enemyMove = new Integer[fc.numOfEnemy];
+		isEnemyAlive = new Boolean[fc.numOfEnemy];
+		enemyMissileX = new Integer[fc.numOfEnemy];
+		enemyMissileY = new Integer[fc.numOfEnemy];
+		isEnemyMissileActive = new Boolean[fc.numOfEnemy];
 		for (Integer i = 0; i < 7; i++) {
 			enemyX[i] = 70 * i;
 			enemyY[i] = 50;
@@ -146,7 +148,7 @@ public class PlayMode implements GameModeIF{
 	
 	@Override
 	public String update() {
-		di.setBackground(fc.black);
+		di.setBackground(FieldConfigBean.black);
 		
 		
 		calcMyPlane();
@@ -159,11 +161,11 @@ public class PlayMode implements GameModeIF{
 		di.drawMyMissile(isMyMissileActive,myMissileX,myMissileY);
 				
 		di.drawEnemyPlane(isEnemyAlive,enemyX,enemyY);
-		di.drawEnemyMissile(isEnemyMissileActive,enemyMissileX,enemyMissileY,fc.red);
+		di.drawEnemyMissile(isEnemyMissileActive,enemyMissileX,enemyMissileY,FieldConfigBean.red);
 		
 		
 		if(numOfAlive == 0){
-			return Result_ClaerMode.name;
+			return Result_ClearMode.name;
 		}
 	
 		return isLose;
@@ -305,7 +307,7 @@ public class PlayMode implements GameModeIF{
 	public String keyPressed(char KeyChar) {
 		
 		if(numOfAlive ==0){
-			return Result_ClaerMode.name;
+			return Result_ClearMode.name;
 		}
 		
 		if(KeyChar=='k'){
@@ -320,6 +322,10 @@ public class PlayMode implements GameModeIF{
 			numOfAlive--;			
 		}
 
+		return null;
+	}
+	@Override
+	public String close() throws Exception {
 		return null;
 	}
 }

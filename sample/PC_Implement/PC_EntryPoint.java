@@ -21,15 +21,11 @@ import javax.swing.Timer;
 
 /**
  *  PC(AWT)向けサンプル実装の、エントリーポイント
- * @author n-dolphin
- * @version 1.00 2014/01/17
+ * @author Naoya Ichikawa
+ * @version 1.10 2014/01/27
  */
 public class PC_EntryPoint  extends JFrame {
-
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * 画面の幅
@@ -55,7 +51,7 @@ public class PC_EntryPoint  extends JFrame {
 		
 		
 		setResizable(false);
-		setTitle("Software Development II");
+		setTitle("Little Invader - Naoya Ichikawa");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		MyJPanel panel = new MyJPanel();
 		Container c = getContentPane();

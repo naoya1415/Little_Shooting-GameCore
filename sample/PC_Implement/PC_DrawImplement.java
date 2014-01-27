@@ -7,26 +7,24 @@ import gameLogic.mode.Bean.TextBean;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 
 import javax.swing.JPanel;
 
 /**
  * PC(AWT)依存コードの実装
  * @author n-dolphin
- * @version 1.00 2014/01/17
+ * @version 1.10 2014/01/27
  */
 public class PC_DrawImplement extends JPanel implements DrawImplementIF {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 描画対象
 	 */
-	protected Graphics g = null;
+	protected Graphics2D g = null;
 	
 	/**
 	 *全モードで共有される設定情報 
@@ -48,8 +46,13 @@ public class PC_DrawImplement extends JPanel implements DrawImplementIF {
 		
 	@SuppressWarnings("hiding")
 	@Override
-	public  <Graphics> void updatePanel(Graphics panel) {
-		this.g = (java.awt.Graphics)panel;
+	public  <Graphics2D> void updatePanel(Graphics2D panel) {
+		this.g = (java.awt.Graphics2D)panel;
+
+		//アンチエイリアス処理を行う
+		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, 
+                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+
 	}
 	
 	
@@ -133,7 +136,7 @@ public class PC_DrawImplement extends JPanel implements DrawImplementIF {
 		
 		g.setColor(new Color(Bean.getColorR(),Bean.getColorG(),Bean.getColorB(),Bean.getColorAlpha()));
 		
-		g.drawString(Bean.getText(), Bean.getX() , Bean.getY());
+		g.drawString(Bean.getText(), Bean.getX() , Bean.getY()+(int)(Bean.getFontSize()*0.7));
 	}
 
 	@Override

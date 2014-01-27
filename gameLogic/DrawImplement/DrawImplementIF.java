@@ -7,8 +7,8 @@ import gameLogic.mode.Bean.TextBean;
 
 /**
  * 実行環境依存の描画処理実装についてのインタフェース
- * @author n-dolphin
- * @version 1.00 2014/01/17
+ * @author NaoyaIchikawa
+ * @version 1.10 2014/01/27
  */
 public interface DrawImplementIF {
 	

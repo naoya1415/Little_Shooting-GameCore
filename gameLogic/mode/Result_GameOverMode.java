@@ -2,10 +2,10 @@ package gameLogic.mode;
 
 /**
  * ゲームオーバ時に表示されるモード
- * @author n-dolphin
- * @version 1.00 2014/01/17
+ * @author NaoyaIchikawa
+ * @version 1.00 2014/01/27
  */
-public class Result_GameOverMode extends Result_ClaerMode{
+public class Result_GameOverMode extends Result_ClearMode{
 
 	/**
 	 * 本モードの名前
@@ -13,17 +13,16 @@ public class Result_GameOverMode extends Result_ClaerMode{
 	final public static String name = "Result_GameOverMode";
 	
 	@Override
-	public String name() {
+	public String getName() {
 		return Result_GameOverMode.name;
 	}
 	@Override
-	void setupResultText(){
+	protected void setupResultText(){
 		super.setupResultText();
 		
-		resultText.setText("GameOver!!");
-		resultText.setLocation((int)(fc.screenWidth/10),resultText.getY());
-		resultText.setFontSize(fc.screenHeight/10);
-		
+		resultText.setText("GameOver");
+		resultText.setStartPosition(null,fc.screenHeight/3- resultText.getTextHeight());
+		resultText.setHorizonalPosition("center");
 	}
 	
 }
