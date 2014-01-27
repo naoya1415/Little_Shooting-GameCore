@@ -147,7 +147,7 @@ public class PlayMode implements GameModeIF{
 	}
 	
 	@Override
-	public String update() {
+	public String update() throws Exception{
 		di.setBackground(FieldConfigBean.black);
 		
 		
@@ -172,12 +172,12 @@ public class PlayMode implements GameModeIF{
 	}
 
 	@Override
-	public String touch(Integer X, Integer Y) {
+	public String touch(Integer X, Integer Y) throws Exception{
 		return null;
 	}
 
 	@Override
-	public String move(Integer X, Integer Y) {
+	public String move(Integer X, Integer Y) throws Exception{
 		myX = X;
 		return null;
 	}
@@ -287,7 +287,7 @@ public class PlayMode implements GameModeIF{
 
 
 	@Override
-	public String pointerDown(Integer X, Integer Y) {
+	public String pointerDown(Integer X, Integer Y) throws Exception{
 		if (!isMyMissileActive) {
 			myMissileX = myX ;
 			myMissileY = myY;
@@ -298,13 +298,13 @@ public class PlayMode implements GameModeIF{
 
 
 	@Override
-	public String pointerUp(Integer X, Integer Y) {
+	public String pointerUp(Integer X, Integer Y)throws Exception {
 		return null;
 	}
 
 
 	@Override
-	public String keyPressed(char KeyChar) {
+	public String keyPressed(char KeyChar)throws Exception {
 		
 		if(numOfAlive ==0){
 			return Result_ClearMode.name;
